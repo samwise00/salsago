@@ -2,7 +2,7 @@ import { Components } from 'exponent';
 import React from 'react';
 import {
   StyleSheet,
-  View
+  View,
 } from 'react-native';
 
 const VideoPlayer = ({ source, onEnd }) => {
@@ -10,9 +10,9 @@ const VideoPlayer = ({ source, onEnd }) => {
       <View style={styles.container}>
           <Components.Video
             source={{ uri: source }}
-            fullscreen
-            onEnd={onEnd}
             volume={0.1}
+            fullscreen
+            oneEnd={onEnd}
           />
       </View>
     );
@@ -21,7 +21,7 @@ const VideoPlayer = ({ source, onEnd }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    padding: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },

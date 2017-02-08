@@ -1,21 +1,54 @@
-import React, { Component } from 'react';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+//import React, { Component } from 'react';
+//import { Provider } from 'react-redux';
+//import { createStore, applyMiddleware } from 'redux';
 import firebase from 'firebase';
-import ReduxThunk from 'redux-thunk';
-import reducers from './reducers';
-import Router from './Router';
+import { StackNavigator } from 'react-navigation';
+//import ReduxThunk from 'redux-thunk';
+//import reducers from './reducers';
+//import Router from './Router';
+import Login from './components/screens/Login';
+import BundleList from './components/screens/BundleList';
+import BeginnerBundle from './components/screens/BeginnerBundle';
 
-export default class App extends Component {
+const config = {
+  apiKey: 'AIzaSyBsyzEPal5l1tbfGvwT5KggArPBr440CN0',
+  authDomain: 'salsago-d79b9.firebaseapp.com',
+  databaseURL: 'https://salsago-d79b9.firebaseio.com',
+  storageBucket: 'salsago-d79b9.appspot.com',
+  messagingSenderId: '454422164264'
+};
+
+firebase.initializeApp(config);
+
+const RouteConfigs = {
+  Login: {
+    screen: Login,
+    navigationOptions: {
+      title: 'Login'
+    }
+  },
+  BundleList: {
+    screen: BundleList,
+    navigationOptions: {
+      title: 'Bundles'
+    }
+  },
+  BeginnerBundle: {
+    screen: BeginnerBundle,
+    navigationOptions: {
+      title: 'Beginner Bundle'
+    }
+  }
+};
+
+const StackNavigatorConfig = {
+  headerMode: 'float'
+};
+
+export default StackNavigator(RouteConfigs, StackNavigatorConfig);
+/* {
   componentWillMount() {
-    const config = {
-      apiKey: 'AIzaSyBsyzEPal5l1tbfGvwT5KggArPBr440CN0',
-      authDomain: 'salsago-d79b9.firebaseapp.com',
-      databaseURL: 'https://salsago-d79b9.firebaseio.com',
-      storageBucket: 'salsago-d79b9.appspot.com',
-      messagingSenderId: '454422164264'
-    };
-    firebase.initializeApp(config);
+
   }
 
   render() {
@@ -34,3 +67,4 @@ export default class App extends Component {
     );
   }
 }
+*/
