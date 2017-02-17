@@ -10,18 +10,22 @@ import { CardSection, Button } from '../common';
 //import { bundleFetch } from '../../actions';
 
 class BundleList extends Component {
+  static navigationOptions = {
+    title: 'Bundle List',
+  }
+
   componentWillMount() {
     console.log(this.props);
     //this.props.bundleFetch();
   }
 
   onBeginnerButtonPress() {
-    return this.props.navigation.navigate('BeginnerBundle');
+    return this.props.navigation.navigate('BeginnerBundleScreen');
   }
 
   render() {
     return (
-      <View style={{ flex: 1, paddingTop: 22 }}>
+      <View style={{ flex: 1, paddingTop: 8 }}>
         <ScrollView>
           <CardSection>
             <Button onPress={this.onBeginnerButtonPress.bind(this)}>Beginner</Button>
@@ -31,6 +35,12 @@ class BundleList extends Component {
           </CardSection>
           <CardSection>
             <Button onPress={this.onBeginnerButtonPress.bind(this)}>Advanced</Button>
+          </CardSection>
+          <CardSection>
+            <Button onPress={this.onBeginnerButtonPress.bind(this)}>Spins and Turns</Button>
+          </CardSection>
+          <CardSection>
+            <Button onPress={this.onBeginnerButtonPress.bind(this)}>Shines</Button>
           </CardSection>
         </ScrollView>
       </View>

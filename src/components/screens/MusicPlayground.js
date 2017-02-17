@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import {
   ScrollView,
   View,
-  AlertIOS
+  Dimensions,
+  Image,
+  StyleSheet
 } from 'react-native';
 //import { Components } from 'exponent';
 //import { Actions } from 'react-native-router-flux';
@@ -12,12 +14,25 @@ import { VideoPlayer } from '../VideoPlayer';
 import { CardSection, Button, Confirm } from '../common';
 //import { bundleFetch } from '../../actions';
 
-class BeginnerBundle extends Component {
+class MusicPlayground extends Component {
   static navigationOptions = {
-    title: 'Beginner Bundle',
+    title: 'Music Playground',
+    tabBar: {
+      showLabel: false,
+      icon: () => (
+        <Image
+          source={require('../../assets/music.png')}
+          style={styles.icon}
+        />
+      )
+    }
   }
 
   state = { videoPlayerShown: false, showModal: false }
+
+  consoleLog() {
+    return console.log(this.state);
+  }
 
   onAccept() {
     this.setState({ showModal: false });
@@ -25,16 +40,6 @@ class BeginnerBundle extends Component {
 
   onDecline() {
     this.setState({ showModal: false });
-  }
-
-  purchaseBeginnerBundle() {
-    const productIdentifier = 'com.ssandoval.salsago.beginnerbundle';
-    InAppUtils.purchaseProduct(productIdentifier, (error, response) => {
-      if (response && response.productIdentifier) {
-      AlertIOS.alert('Purchase Successful', 'Your Transaction ID is ' + response.transactionIdentifier);
-      //unlock store here.
-      }
-    });
   }
 
   lockedItemPress() {
@@ -49,9 +54,10 @@ class BeginnerBundle extends Component {
     if (this.state.videoPlayerShown === true) {
       return (
         <VideoPlayer
-          source='https://firebasestorage.googleapis.com/v0/b/salsago-d79b9.appspot.com/o/Nieves%20Dance%20Company%20%40%20LCL%20March%2020th%202016.mp4?alt=media&token=c6108ccc-bcf7-4d8e-9200-f3547bd481f1'
+          source='https://firebasestorage.googleapis.com/v0/b/salsago-d79b9.appspot.com/o/LA%20LLAVE%20-%20LATIN%20VIBE.3gp?alt=media&token=8ff0c8dc-e325-4e30-a16e-8e9387f16eb7'
           onEnd={this.toggleVideoPlayerState.bind(this)}
-          fullscreen
+          style={{ width: Dimensions.get('window').width, height: '50' }}
+          resizeMode='cover'
         />
       );
     }
@@ -62,22 +68,20 @@ class BeginnerBundle extends Component {
       <View style={{ flex: 1, paddingTop: 8 }}>
         <ScrollView>
           <CardSection>
-            <Button onPress={this.toggleVideoPlayerState.bind(this)}>Basic Step</Button>
+            <Button onPress={this.toggleVideoPlayerState.bind(this)}>La Llave - Grupo Latin Vibe</Button>
+          </CardSection>
+          {this.renderVideo()}
+          <CardSection>
+            <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>Linda Mujer - El Timba</Button>
           </CardSection>
           <CardSection>
-            <Button>Cross Body Lead</Button>
+            <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>Mi Bomba Sono - Alfredo Linares</Button>
           </CardSection>
           <CardSection>
-            <Button onPress={() => this.purchaseBeginnerBundle}>Right Turn</Button>
+            <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>Via - Al DeLory</Button>
           </CardSection>
           <CardSection>
-            <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>CBL + Right Turn</Button>
-          </CardSection>
-          <CardSection>
-            <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>Hammer Lock</Button>
-          </CardSection>
-          <CardSection>
-            <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>Cab Driver</Button>
+            <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>Tu Sin Mi - Jehu El Rey</Button>
           </CardSection>
 
           <Confirm
@@ -87,14 +91,18 @@ class BeginnerBundle extends Component {
           >
           Purchase pro version to unlock all content
           </Confirm>
-
-          {this.renderVideo()}
         </ScrollView>
       </View>
     );
   }
 }
 
+const styles = StyleSheet.create({
+  icon: {
+    width: 28,
+    height: 28
+  }
+});
 //export default connect(null, { bundleFetch })(BeginnerBundle);
 
-export default BeginnerBundle;
+export default MusicPlayground;

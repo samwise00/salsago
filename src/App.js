@@ -1,14 +1,9 @@
-//import React, { Component } from 'react';
-//import { Provider } from 'react-redux';
-//import { createStore, applyMiddleware } from 'redux';
+import React from 'react';
 import firebase from 'firebase';
-import { StackNavigator } from 'react-navigation';
-//import ReduxThunk from 'redux-thunk';
-//import reducers from './reducers';
-//import Router from './Router';
-import Login from './components/screens/Login';
+import { StackNavigator, TabNavigator } from 'react-navigation';
 import BundleList from './components/screens/BundleList';
 import BeginnerBundle from './components/screens/BeginnerBundle';
+import MusicPlayground from './components/screens/MusicPlayground';
 
 const config = {
   apiKey: 'AIzaSyBsyzEPal5l1tbfGvwT5KggArPBr440CN0',
@@ -20,32 +15,29 @@ const config = {
 
 firebase.initializeApp(config);
 
-const RouteConfigs = {
-  Login: {
-    screen: Login,
-    navigationOptions: {
-      title: 'Login'
-    }
-  },
-  BundleList: {
-    screen: BundleList,
-    navigationOptions: {
-      title: 'Bundles'
-    }
-  },
-  BeginnerBundle: {
-    screen: BeginnerBundle,
-    navigationOptions: {
-      title: 'Beginner Bundle'
-    }
-  }
-};
+const HomeNav = StackNavigator({
+  BundleListScreen: { screen: BundleList },
+  BeginnerBundleScreen: { screen: BeginnerBundle }
+});
 
-const StackNavigatorConfig = {
-  headerMode: 'float'
-};
+const MusicNav = StackNavigator({
+  MusicPlayground: { screen: MusicPlayground }
+});
 
-export default StackNavigator(RouteConfigs, StackNavigatorConfig);
+const TabNav = TabNavigator({
+  Home: { screen: HomeNav },
+  Music: { screen: MusicNav }
+}, {
+  tabBarOptions: {
+    activeTintColor: '#424242',
+    showLabel: false,
+    style: {
+      backgroundColor: '#F8E0E6',
+    }
+}
+});
+
+export default TabNav;
 /* {
   componentWillMount() {
 
