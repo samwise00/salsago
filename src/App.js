@@ -4,6 +4,8 @@ import { StackNavigator, TabNavigator } from 'react-navigation';
 import BundleList from './components/screens/BundleList';
 import BeginnerBundle from './components/screens/BeginnerBundle';
 import MusicPlayground from './components/screens/MusicPlayground';
+import MusicPlayer from './components/screens/MusicPlayer';
+import NewsFeed from './components/screens/NewsFeed';
 
 const config = {
   apiKey: 'AIzaSyBsyzEPal5l1tbfGvwT5KggArPBr440CN0',
@@ -24,13 +26,23 @@ const MusicNav = StackNavigator({
   MusicPlayground: { screen: MusicPlayground }
 });
 
+const MusicPlayerNav = StackNavigator({
+  MusicPlayer: { screen: MusicPlayer }
+});
+
+const NewsFeedNav = StackNavigator({
+  NewsFeed: { screen: NewsFeed }
+});
+
 const TabNav = TabNavigator({
   Home: { screen: HomeNav },
-  Music: { screen: MusicNav }
+  Music: { screen: MusicNav },
+  Listen: { screen: MusicPlayerNav },
+  NewsFeed: { screen: NewsFeedNav }
 }, {
   tabBarOptions: {
     activeTintColor: '#424242',
-    showLabel: false,
+    showLabel: true,
     style: {
       backgroundColor: '#F8E0E6',
     }

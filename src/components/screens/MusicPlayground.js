@@ -1,5 +1,5 @@
-import { Components } from 'exponent';
-import React, { Component } from 'react';
+import { Components, Audio } from 'exponent';
+import React, { Component} from 'react';
 import {
   ScrollView,
   View,
@@ -30,6 +30,9 @@ class MusicPlayground extends Component {
 
   state = { videoPlayerShown: false, showModal: false }
 
+  componentWillMount() {
+    return Audio.setIsEnabled(false);
+  }
   consoleLog() {
     return console.log(this.state);
   }

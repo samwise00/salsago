@@ -8,11 +8,11 @@
   "dependencies": {
     "@exponent/vector-icons": "~2.0.3",
     "es6-promise": "^4.0.5",
-    "exponent": "~12.0.3",
+    "exponent": "~14.0.0",
     "firebase": "^3.6.7",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.4",
-    "react": "~15.3.1",
+    "react": "~15.4.0",
     "react-native": "git+https://github.com/exponentjs/react-native.git#sdk-14.0.0",
     "react-native-router-flux": "^3.37.0",
     "react-navigation": "^1.0.0-beta.1",
