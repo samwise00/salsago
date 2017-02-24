@@ -6,11 +6,30 @@ import {
   Image,
   StyleSheet
 } from 'react-native';
+import * as firebase from 'firebase';
 import { CardSection, Card, Button } from '../common';
 
 class NewsFeed extends Component {
   static navigationOptions = {
     title: 'News and Events',
+  }
+
+  componentWillMount() {
+    return this.fetchEventData();
+  }
+  componentDidMount() {
+  }
+
+  fetchEventData = () => {
+    const ref = firebase.database().ref('events')
+    const eventName = ref.children
+  // This will be called exactly two times (unless there are less than two
+  // dinosaurs in the Database).
+
+  // It will also get fired again if one of the first two dinosaurs is
+  // removed from the data set, as a new dinosaur will now be the second
+  // shortest.
+  console.log(eventName);
   }
 
   render() {
