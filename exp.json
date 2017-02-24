@@ -13,7 +13,7 @@
     "color": "#000000"
   },
   "loading": {
-    "iconUrl": "https://firebasestorage.googleapis.com/v0/b/salsago-d79b9.appspot.com/o/splashscreenlogo.png?alt=media&token=b7be1767-24c5-44da-aaab-1140a53fea59",
+    "icon": "./logo.png",
     "hideExponentText": true
   },
   "packagerOpts": {
