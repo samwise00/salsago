@@ -1,82 +1,51 @@
 import React, { Component } from 'react';
-import {
-  ScrollView,
-  Text,
-  View,
-  Image,
-  StyleSheet
-} from 'react-native';
-import * as firebase from 'firebase';
-import { CardSection, Card, Button } from '../common';
+import { ScrollView} from 'react-native';
+import axios from 'axios';
+import NewsDetail from '../NewsDetail';
 
 class NewsFeed extends Component {
   static navigationOptions = {
-    title: 'News and Events',
+    title: 'News',
   }
+
+  state = { events: [] };
 
   componentWillMount() {
-    return this.fetchEventData();
-  }
-  componentDidMount() {
+    this.fetchNews();
   }
 
-  fetchEventData = () => {
-    const ref = firebase.database().ref('events')
-    const eventName = ref.children
-  // This will be called exactly two times (unless there are less than two
-  // dinosaurs in the Database).
+  fetchNews() {
+    axios.get('https://salsago-d79b9.firebaseio.com/events.json')
+      .then((response) => {
+        const arr = [];
+        for (const i in response.data) {
+          arr.push(response.data[i]);
+        }
+        this.setState({ events: arr });
+      });
+  }
 
-  // It will also get fired again if one of the first two dinosaurs is
-  // removed from the data set, as a new dinosaur will now be the second
-  // shortest.
-  console.log(eventName);
+  renderEvents() {
+    /*const eventDetails = [];
+
+    this.state.events.forEach(function (detail) {
+      eventDetails.push(detail);
+      console.log(this.eventDetails);
+    })*/
+
+    return this.state.events.map(event =>
+      <NewsDetail key={event.title} event={event} />
+    );
   }
 
   render() {
+    console.log(this.state);
     return (
-      <View style={{ flex: 1, paddingTop: 8 }}>
-        <ScrollView>
-          <Card>
-            <CardSection>
-              <Text style={styles.titleStyle}>Featured November Bundle: Spin Practice!</Text>
-            </CardSection>
-            <CardSection>
-              <Text>Learn, practice and brush up on your spins by our featured monthly bundle. Taught by Wil Nieves and Nova Landeaus.</Text>
-            </CardSection>
-            <CardSection>
-              <Button>Unlock Now</Button>
-            </CardSection>
-          </Card>
-          <Card>
-            <CardSection>
-              <Text style={styles.titleStyle}>Join us this September at the New York International Salsa Congress!</Text>
-            </CardSection>
-            <CardSection>
-              <Text>The New York International Salsa Congress is New York City's PREMIER Latin dance and music event where the world comes to dance no matter your style and/or age, whether you're an amateur or professional dancer. </Text>
-            </CardSection>
-            <CardSection>
-              <Image
-                source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/salsago-d79b9.appspot.com/o/15252602_10154025985081867_6299447087889254339_o.jpg?alt=media&token=0fcd3376-9130-4a39-a837-b3a1f5aa7315' }}
-                style={styles.image}
-              />
-            </CardSection>
-          </Card>
-        </ScrollView>
-      </View>
+      <ScrollView>
+        {this.renderEvents()}
+      </ScrollView>
     );
   }
 }
-//export default connect(null, { bundleFetch })(BeginnerBundle);
-
-const styles = StyleSheet.create({
-  image: {
-    flex: 1,
-    height: 200
-  },
-  titleStyle: {
-    fontWeight: 'bold',
-    fontSize: '14'
-  }
-});
 
 export default NewsFeed;

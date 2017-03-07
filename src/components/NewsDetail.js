@@ -1,8 +1,8 @@
 import React from 'react';
-import { Text, View, Image, Linking } from 'react-native';
+import { Text, View, Image, Linking, Dimensions } from 'react-native';
 import { CardSection, Card, Button } from './common';
 
-const EventDetail = ({ event }) => {
+const NewsDetail = ({ event }) => {
   const { title, date, imageUrl, linkUrl } = event;
   const {
     thumbnailStyle,
@@ -15,13 +15,6 @@ const EventDetail = ({ event }) => {
   return (
     <Card>
       <CardSection>
-        <View style={thumbnailContainerStyle}>
-          <Image
-          style={thumbnailStyle}
-          source={{ uri: imageUrl }}
-
-          />
-        </View>
         <View style={headerContentStyle}>
           <Text style={headerTextStyle}>{title}</Text>
         </View>
@@ -56,7 +49,7 @@ const styles = {
     width: 50
   },
   imageStyle: {
-    height: 300,
+    height: Dimensions.get('window').height / 7,
     flex: 1,
     width: null
   },
@@ -68,4 +61,4 @@ const styles = {
   }
 };
 
-export default EventDetail;
+export default NewsDetail;

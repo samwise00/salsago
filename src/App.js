@@ -5,7 +5,7 @@ import BundleList from './components/screens/BundleList';
 import BeginnerBundle from './components/screens/BeginnerBundle';
 import MusicPlayground from './components/screens/MusicPlayground';
 import MusicPlayer from './components/screens/MusicPlayer';
-import NewsFeed from './components/screens/EventList';
+import NewsFeed from './components/screens/NewsFeed';
 
 const config = {
   apiKey: 'AIzaSyBsyzEPal5l1tbfGvwT5KggArPBr440CN0',
