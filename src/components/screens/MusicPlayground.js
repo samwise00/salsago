@@ -1,5 +1,5 @@
-import { Components, Audio } from 'exponent';
-import React, { Component} from 'react';
+import { Components, Audio } from 'expo';
+import React, { Component } from 'react';
 import {
   ScrollView,
   View,

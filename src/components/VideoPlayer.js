@@ -1,8 +1,8 @@
-import { Components } from 'exponent';
+import { Components } from 'expo';
 import React from 'react';
 import {
   StyleSheet,
-  View,
+  View
 } from 'react-native';
 
 const VideoPlayer = ({ source, onEnd, fullscreen, style, resizeMode }) => {
@@ -15,6 +15,8 @@ const VideoPlayer = ({ source, onEnd, fullscreen, style, resizeMode }) => {
             oneEnd={onEnd}
             style={style}
             resizeMode={resizeMode}
+            canPlayFastForward
+            fullscreen={fullscreen}
           />
       </View>
     );

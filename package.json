@@ -6,10 +6,10 @@
   "private": true,
   "main": "main.js",
   "dependencies": {
-    "@exponent/vector-icons": "~2.0.3",
+    "@expo/vector-icons": "~4.0.0",
     "axios": "^0.15.3",
     "es6-promise": "^4.0.5",
-    "exponent": "~14.0.0",
+    "expo": "~14.0.2",
     "firebase": "^3.6.7",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.4",

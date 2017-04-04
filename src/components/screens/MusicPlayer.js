@@ -8,11 +8,11 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-import Exponent, {
+import Expo, {
   Asset,
   Audio,
   Font,
-} from 'exponent';
+} from 'expo';
 
 class Icon {
   constructor(module, width, height) {

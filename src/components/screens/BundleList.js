@@ -1,5 +1,4 @@
 //import _ from 'lodash';
-import { Actions } from 'react-native-router-flux';
 import React, { Component } from 'react';
 import {
   ScrollView,
@@ -12,11 +11,6 @@ import { CardSection, Button } from '../common';
 class BundleList extends Component {
   static navigationOptions = {
     title: 'Bundle List',
-  }
-
-  componentWillMount() {
-    console.log(this.props);
-    //this.props.bundleFetch();
   }
 
   onBeginnerButtonPress() {

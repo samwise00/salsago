@@ -1,4 +1,4 @@
-import Exponent from 'exponent';
+import Expo from 'expo';
 import firebase from 'firebase';
 //import 'isomorphic-fetch';
 import React, { Component } from 'react';
@@ -31,7 +31,7 @@ export default class Login extends Component {
     const options = {
       permissions: ['public_profile', 'user_birthday', 'user_work_history']
     };
-    const { type, token } = await Exponent.Facebook.logInWithReadPermissionsAsync(ADD_ID, options);
+    const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(ADD_ID, options);
 
     if (type === 'success') {
       const fields = [

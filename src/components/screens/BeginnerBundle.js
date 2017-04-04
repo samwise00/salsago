@@ -1,23 +1,30 @@
-import { Components } from 'exponent';
 import React, { Component } from 'react';
 import {
   ScrollView,
   View,
-  AlertIOS
+  Dimensions
 } from 'react-native';
-//import { Components } from 'exponent';
-//import { Actions } from 'react-native-router-flux';
-//import { connect } from 'react-redux';
 import { VideoPlayer } from '../VideoPlayer';
 import { CardSection, Button, Confirm } from '../common';
-//import { bundleFetch } from '../../actions';
 
 class BeginnerBundle extends Component {
   static navigationOptions = {
     title: 'Beginner Bundle',
   }
 
-  state = { videoPlayerShown: false, showModal: false }
+  state = { videoPlayerShown: false, showModal: false, }
+
+  componentDidMount() {
+    console.log('beginner bundle component rendered')
+  }
+
+  componentDidUpdate() {
+    console.log("navigation prop" + this.props.navigation.state.routeName)
+  }
+
+  componentWillUnmount() {
+    console.log("component about to unmount")
+  }
 
   onAccept() {
     this.setState({ showModal: false });
@@ -25,16 +32,6 @@ class BeginnerBundle extends Component {
 
   onDecline() {
     this.setState({ showModal: false });
-  }
-
-  purchaseBeginnerBundle() {
-    const productIdentifier = 'com.ssandoval.salsago.beginnerbundle';
-    InAppUtils.purchaseProduct(productIdentifier, (error, response) => {
-      if (response && response.productIdentifier) {
-      AlertIOS.alert('Purchase Successful', 'Your Transaction ID is ' + response.transactionIdentifier);
-      //unlock store here.
-      }
-    });
   }
 
   lockedItemPress() {
@@ -64,6 +61,7 @@ class BeginnerBundle extends Component {
           <CardSection>
             <Button onPress={this.toggleVideoPlayerState.bind(this)}>Basic Step</Button>
           </CardSection>
+          {this.renderVideo()}
           <CardSection>
             <Button>Cross Body Lead</Button>
           </CardSection>
@@ -85,10 +83,10 @@ class BeginnerBundle extends Component {
           onDecline={this.onDecline.bind(this)}
           visible={this.state.showModal}
           >
-          Purchase pro version to unlock all content
+          Placeholder text
           </Confirm>
 
-          {this.renderVideo()}
+
         </ScrollView>
       </View>
     );

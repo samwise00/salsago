@@ -1,4 +1,3 @@
-import React from 'react';
 import firebase from 'firebase';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import BundleList from './components/screens/BundleList';
