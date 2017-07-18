@@ -10,16 +10,11 @@ import { CardSection, Button } from '../common';
 
 class BundleList extends Component {
   static navigationOptions = {
-    title: 'Bundle List',
-    tabBarLabel: 'Lessons'
+    title: 'Store',
   }
 
   onBeginnerButtonPress() {
     return this.props.navigation.navigate('BeginnerBundleScreen');
-  }
-
-  onStoreButtonPress() {
-    return this.props.navigation.navigate('Store');
   }
 
   render() {
@@ -27,16 +22,16 @@ class BundleList extends Component {
       <View style={{ flex: 1, paddingTop: 8 }}>
         <ScrollView>
           <CardSection>
-            <Button onPress={this.onBeginnerButtonPress.bind(this)}>Beginner</Button>
+            <Button onPress={this.onBeginnerButtonPress.bind(this)}>Unlock Beginner Bundle</Button>
           </CardSection>
           <CardSection>
-            <Button onPress={this.onBeginnerButtonPress.bind(this)}>Intermediate</Button>
+            <Button onPress={this.onBeginnerButtonPress.bind(this)}>Unlock Intermediate Bundle</Button>
           </CardSection>
           <CardSection>
-            <Button onPress={this.onBeginnerButtonPress.bind(this)}>Advanced</Button>
+            <Button onPress={this.onBeginnerButtonPress.bind(this)}>Unlock Advanced Bundle</Button>
           </CardSection>
           <CardSection>
-            <Button onPress={this.onBeginnerButtonPress.bind(this)}>Spins and Turns</Button>
+            <Button onPress={this.onBeginnerButtonPress.bind(this)}>Unlock Spins and Turns Bundle</Button>
           </CardSection>
           <CardSection>
             <Button onPress={this.onBeginnerButtonPress.bind(this)}>Shines</Button>

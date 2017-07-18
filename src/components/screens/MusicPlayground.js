@@ -17,7 +17,8 @@ import { CardSection, Button, Confirm } from '../common';
 class MusicPlayground extends Component {
   static navigationOptions = {
     title: 'Music Playground',
-    tabBar: {
+    tabBarLabel: 'Podcasts',
+    tabBarOptions: {
       showLabel: false,
       icon: () => (
         <Image

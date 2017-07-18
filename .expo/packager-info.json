@@ -1,10 +1,8 @@
 {
-  "exponentServerPort": null,
   "packagerPort": 19001,
-  "packagerPid": 5204,
-  "exponentServerNgrokUrl": null,
-  "packagerNgrokUrl": "https://packager.vn-ppn.samwise000.salsago.exp.direct",
-  "ngrokPid": 5218,
+  "packagerPid": 30210,
   "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://vn-ppn.samwise000.salsago.exp.direct"
+  "expoServerNgrokUrl": "https://vn-ppn.samwise000.salsago.exp.direct",
+  "packagerNgrokUrl": "https://packager.vn-ppn.samwise000.salsago.exp.direct",
+  "ngrokPid": 30224
 }

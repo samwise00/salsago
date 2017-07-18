@@ -5,7 +5,7 @@ import NewsDetail from '../NewsDetail';
 
 class NewsFeed extends Component {
   static navigationOptions = {
-    title: 'News',
+    title: 'Events'
   }
 
   state = { events: [] };

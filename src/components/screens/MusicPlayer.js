@@ -83,7 +83,7 @@ const LOADING_STRING = '... loading ...';
 
 class MusicPlayer extends React.Component {
   static navigationOptions = {
-    title: 'Listen',
+    title: 'Music'
   }
 
   constructor(props) {

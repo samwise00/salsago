@@ -5,6 +5,7 @@ import BeginnerBundle from './components/screens/BeginnerBundle';
 import MusicPlayground from './components/screens/MusicPlayground';
 import MusicPlayer from './components/screens/MusicPlayer';
 import NewsFeed from './components/screens/NewsFeed';
+import Store from './components/screens/Store';
 
 const config = {
   apiKey: 'AIzaSyBsyzEPal5l1tbfGvwT5KggArPBr440CN0',
@@ -33,11 +34,16 @@ const NewsFeedNav = StackNavigator({
   NewsFeed: { screen: NewsFeed }
 });
 
+const StoreNav = StackNavigator({
+  Store: { screen: Store }
+});
+
 const TabNav = TabNavigator({
   Home: { screen: HomeNav },
   Music: { screen: MusicNav },
   Listen: { screen: MusicPlayerNav },
-  NewsFeed: { screen: NewsFeedNav }
+  NewsFeed: { screen: NewsFeedNav },
+  Store: { screen: StoreNav }
 }, {
   tabBarOptions: {
     activeTintColor: '#424242',
@@ -46,6 +52,7 @@ const TabNav = TabNavigator({
       backgroundColor: '#F8E0E6',
     }
 }
+
 });
 
 export default TabNav;

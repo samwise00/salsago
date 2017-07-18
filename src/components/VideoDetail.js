@@ -1,16 +1,17 @@
 import React from 'react';
 import { Text, View, Image, Linking, Dimensions } from 'react-native';
 import { CardSection, Card, Button } from './common';
+import { VideoPlayer } from './VideoPlayer';
 
-const NewsDetail = ({ event }) => {
-  const { title, date, imageUrl, linkUrl } = event;
+const VideoDetail = ({ videoList, videoToggle, renderVideo }) => {
+  const { title, imageUrl, linkUrl } = videoList;
   const {
     thumbnailStyle,
     headerContentStyle,
     thumbnailContainerStyle,
     headerTextStyle,
     imageStyle
-  } = styles;
+  } = styles
 
   return (
     <Card>
@@ -19,19 +20,10 @@ const NewsDetail = ({ event }) => {
           <Text style={headerTextStyle}>{title}</Text>
         </View>
       </CardSection>
-
       <CardSection>
-          <Image
-            style={imageStyle}
-            source={{ uri: imageUrl }}
-          />
+          <Button onPress={videoToggle}>Beginner</Button>
       </CardSection>
-
-      <CardSection>
-        <Button onPress={() => Linking.openURL(linkUrl)}>
-          More Info
-        </Button>
-      </CardSection>
+      {renderVideo}
     </Card>
   );
 };
@@ -61,4 +53,4 @@ const styles = {
   }
 };
 
-export default NewsDetail;
+export default VideoDetail;
