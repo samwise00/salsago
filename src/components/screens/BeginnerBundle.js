@@ -46,6 +46,12 @@ class BeginnerBundle extends Component {
       });
   }
 
+  makeVideoUrl(url) {
+    const newUrl = '"' + url + '""';
+    return newUrl
+  }
+
+
   renderVideoList() {
     return this.state.videoList.map(videoList =>
       <VideoDetail
@@ -62,13 +68,14 @@ class BeginnerBundle extends Component {
     if (this.state.videoPlayerShown === true) {
       return (
         <VideoPlayer
-          source={url}
-          onEnd={this.toggleVideoPlayerState.bind(this)}
-          fullscreen
+          source="https://firebasestorage.googleapis.com/v0/b/salsago-d79b9.appspot.com/o/Nieves%20Dance%20Company%20%40%20LCL%20March%2020th%202016.mp4?alt=media&token=c6108ccc-bcf7-4d8e-9200-f3547bd481f1"
         />
       );
     }
   }
+
+  //source="https://firebasestorage.googleapis.com/v0/b/salsago-d79b9.appspot.com/o/Nieves%20Dance%20Company%20%40%20LCL%20March%2020th%202016.mp4?alt=media&token=c6108ccc-bcf7-4d8e-9200-f3547bd481f1"
+
 
   render() {
     return (

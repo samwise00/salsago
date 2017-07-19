@@ -1,22 +1,25 @@
-import { Components } from 'expo';
+import Expo from 'expo';
 import React from 'react';
 import {
   StyleSheet,
   View
 } from 'react-native';
 
-const VideoPlayer = ({ source, onEnd, fullscreen, style, resizeMode }) => {
+const VideoPlayer = ({ source, style }) => {
     return (
       <View style={styles.container}>
-          <Components.Video
+          <Expo.Video
+            ref={r=> this.vid = r}
             source={{ uri: source }}
+            rate={1.0}
             volume={0.1}
-            fullscreen={fullscreen}
-            oneEnd={onEnd}
+            muted={false}
+            resizeMode="RESIZE_MODE_COVER"
+            isLooping
             style={style}
-            resizeMode={resizeMode}
-            canPlayFastForward
-            fullscreen={fullscreen}
+            shouldPlay
+            useNativeControls
+            naturalSize
           />
       </View>
     );
@@ -28,6 +31,9 @@ const styles = StyleSheet.create({
     padding: 5,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#rgba(0,0,0,0.9)',
+    width: 300,
+    height: 300
   },
 
 });

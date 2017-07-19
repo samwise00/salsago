@@ -8,11 +8,7 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-import Expo, {
-  Asset,
-  Audio,
-  Font,
-} from 'expo';
+import Expo, { Asset, Audio, Font, Video } from 'expo';
 
 class Icon {
   constructor(module, width, height) {
@@ -24,53 +20,92 @@ class Icon {
 }
 
 class PlaylistItem {
-  constructor(name, source) {
+  constructor(name, uri, isVideo) {
     this.name = name;
-    this.source = source;
-    this.sound = null;
-  }
-
-  async getLoadedSound() {
-    if (this.sound == null) {
-      if (typeof source === 'number') { // source is an asset module, so let's download it for better performance
-        await Asset.fromModule(this.source).downloadAsync();
-      }
-      this.sound = new Audio.Sound({ source: this.source });
-    }
-    return await this.sound.loadAsync();
+    this.uri = uri;
+    this.isVideo = isVideo;
   }
 }
 
 const PLAYLIST = [
   new PlaylistItem(
-    'Avenida B - “Llora Como Llore”',
-    'https://firebasestorage.googleapis.com/v0/b/salsago-d79b9.appspot.com/o/Avenida%20B%20-%20Llora%20Como%20Llore.mp3?alt=media&token=30af396c-c16e-424f-8120-48aed42b20b5'
+    'Comfort Fit - “Sorry”',
+    'https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Comfort_Fit_-_03_-_Sorry.mp3',
+    false
+  ),
+  new PlaylistItem(
+    'Big Buck Bunny',
+    'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    true
   ),
   new PlaylistItem(
     'Mildred Bailey – “All Of Me”',
-    'https://ia800304.us.archive.org/34/items/PaulWhitemanwithMildredBailey/PaulWhitemanwithMildredBailey-AllofMe.mp3'
+    'https://ia800304.us.archive.org/34/items/PaulWhitemanwithMildredBailey/PaulWhitemanwithMildredBailey-AllofMe.mp3',
+    false
+  ),
+  new PlaylistItem(
+    "Popeye - I don't scare",
+    'https://ia800501.us.archive.org/11/items/popeye_i_dont_scare/popeye_i_dont_scare_512kb.mp4',
+    true
   ),
   new PlaylistItem(
     'Podington Bear - “Rubber Robot”',
-    'https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Podington_Bear_-_Rubber_Robot.mp3'
+    'https://s3.amazonaws.com/exp-us-standard/audio/playlist-example/Podington_Bear_-_Rubber_Robot.mp3',
+    false
   ),
 ];
 
-const ICON_PLAY_BUTTON = new Icon(require('../../assets/images/musicplayer/play_button@1x.png'), 34, 51);
-const ICON_PAUSE_BUTTON = new Icon(require('../../assets/images/musicplayer/pause_button@1x.png'), 34, 51);
-const ICON_STOP_BUTTON = new Icon(require('../../assets/images/musicplayer/stop_button@1x.png'), 22, 22);
-const ICON_FORWARD_BUTTON = new Icon(require('../../assets/images/musicplayer/forward_button@1x.png'), 33, 25);
-const ICON_BACK_BUTTON = new Icon(require('../../assets/images/musicplayer/back_button@1x.png'), 33, 25);
+const ICON_PLAY_BUTTON = new Icon(
+  require('./assets/images/play_button.png'),
+  34,
+  51
+);
+const ICON_PAUSE_BUTTON = new Icon(
+  require('./assets/images/pause_button.png'),
+  34,
+  51
+);
+const ICON_STOP_BUTTON = new Icon(
+  require('./assets/images/stop_button.png'),
+  22,
+  22
+);
+const ICON_FORWARD_BUTTON = new Icon(
+  require('./assets/images/forward_button.png'),
+  33,
+  25
+);
+const ICON_BACK_BUTTON = new Icon(
+  require('./assets/images/back_button.png'),
+  33,
+  25
+);
 
-const ICON_LOOP_ALL_BUTTON = new Icon(require('../../assets/images/musicplayer/loop_all_button@1x.png'), 77, 35);
-const ICON_LOOP_ONE_BUTTON = new Icon(require('../../assets/images/musicplayer/loop_one_button@1x.png'), 77, 35);
+const ICON_LOOP_ALL_BUTTON = new Icon(
+  require('./assets/images/loop_all_button.png'),
+  77,
+  35
+);
+const ICON_LOOP_ONE_BUTTON = new Icon(
+  require('./assets/images/loop_one_button.png'),
+  77,
+  35
+);
 
-const ICON_MUTED_BUTTON = new Icon(require('../../assets/images/musicplayer/muted_button@1x.png'), 67, 58);
-const ICON_UNMUTED_BUTTON = new Icon(require('../../assets/images/musicplayer/unmuted_button@1x.png'), 67, 58);
+const ICON_MUTED_BUTTON = new Icon(
+  require('./assets/images/muted_button.png'),
+  67,
+  58
+);
+const ICON_UNMUTED_BUTTON = new Icon(
+  require('./assets/images/unmuted_button.png'),
+  67,
+  58
+);
 
-const ICON_TRACK_1 = new Icon(require('../../assets/images/musicplayer/track_1@1x.png'), 166, 5);
-const ICON_THUMB_1 = new Icon(require('../../assets/images/musicplayer/thumb_1@1x.png'), 18, 19);
-const ICON_THUMB_2 = new Icon(require('../../assets/images/musicplayer/thumb_2@1x.png'), 15, 19);
+const ICON_TRACK_1 = new Icon(require('./assets/images/track_1.png'), 166, 5);
+const ICON_THUMB_1 = new Icon(require('./assets/images/thumb_1.png'), 18, 19);
+const ICON_THUMB_2 = new Icon(require('./assets/images/thumb_2.png'), 15, 19);
 
 const LOOPING_TYPE_ALL = 0;
 const LOOPING_TYPE_ONE = 1;
@@ -79,161 +114,293 @@ const LOOPING_TYPE_ICONS = { 0: ICON_LOOP_ALL_BUTTON, 1: ICON_LOOP_ONE_BUTTON };
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get('window');
 const BACKGROUND_COLOR = '#FFF8ED';
 const DISABLED_OPACITY = 0.5;
+const FONT_SIZE = 14;
 const LOADING_STRING = '... loading ...';
+const BUFFERING_STRING = '...buffering...';
+const RATE_SCALE = 3.0;
+const VIDEO_CONTAINER_HEIGHT = DEVICE_HEIGHT * 2.0 / 5.0 - FONT_SIZE * 2;
 
 class MusicPlayer extends React.Component {
-  static navigationOptions = {
-    title: 'Music'
-  }
-
   constructor(props) {
     super(props);
     this.index = 0;
-    this.sound = null;
     this.isSeeking = false;
     this.shouldPlayAtEndOfSeek = false;
-    this.volume = 1.0;
+    this.playbackInstance = null;
     this.state = {
-      soundName: '',
+      showVideo: false,
+      playbackInstanceName: LOADING_STRING,
       loopingType: LOOPING_TYPE_ALL,
       muted: false,
-      soundPosition: null,
-      soundDuration: null,
+      playbackInstancePosition: null,
+      playbackInstanceDuration: null,
+      shouldPlay: false,
       isPlaying: false,
+      isBuffering: false,
       isLoading: true,
       fontLoaded: false,
+      shouldCorrectPitch: true,
+      volume: 1.0,
+      rate: 1.0,
+      videoWidth: DEVICE_WIDTH,
+      videoHeight: VIDEO_CONTAINER_HEIGHT,
+      poster: false,
+      useNativeControls: false,
+      fullscreen: false,
     };
   }
 
   componentDidMount() {
-    Audio.setIsEnabled(true);
+    Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+      interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+      playsInSilentModeIOS: true,
+      shouldDuckAndroid: true,
+      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+    });
     (async () => {
-      await Font.loadAsync({ 'cutive-mono-regular': require('../../assets/fonts/CutiveMono-Regular.ttf') });
+      await Font.loadAsync({
+        'cutive-mono-regular': require('./assets/fonts/CutiveMono-Regular.ttf'),
+      });
       this.setState({ fontLoaded: true });
     })();
-    this.updateSoundForIndex();
   }
 
-  componentDidUnmount() {
-    this.sound.stop();
+  async _loadNewPlaybackInstance(playing) {
+    if (this.playbackInstance != null) {
+      await this.playbackInstance.unloadAsync();
+      this.playbackInstance.setCallback(null);
+      this.playbackInstance = null;
+    }
+
+    const source = { uri: PLAYLIST[this.index].uri };
+    const initialStatus = {
+      shouldPlay: playing,
+      rate: this.state.rate,
+      shouldCorrectPitch: this.state.shouldCorrectPitch,
+      volume: this.state.volume,
+      isMuted: this.state.muted,
+      isLooping: this.state.loopingType === LOOPING_TYPE_ONE,
+    };
+
+    if (PLAYLIST[this.index].isVideo) {
+      this._video.setCallback(this._callback);
+      await this._video.loadAsync(source, initialStatus);
+      this.playbackInstance = this._video;
+      const status = await this._video.getStatusAsync();
+    } else {
+      const { sound, status } = await Audio.Sound.create(
+        source,
+        initialStatus,
+        this._callback
+      );
+      this.playbackInstance = sound;
+    }
+
+    this._updateScreenForLoading(false);
   }
 
-  updateScreenForLoading(isLoading) {
+  _mountVideo = component => {
+    this._video = component;
+    this._loadNewPlaybackInstance(false);
+  };
+
+  _updateScreenForLoading(isLoading) {
     if (isLoading) {
-      this.setState({ soundName: LOADING_STRING, soundDuration: null, soundPosition: null, isLoading: true });
+      this.setState({
+        showVideo: false,
+        isPlaying: false,
+        playbackInstanceName: LOADING_STRING,
+        playbackInstanceDuration: null,
+        playbackInstancePosition: null,
+        isLoading: true,
+      });
     } else {
       this.setState({
-        soundName: PLAYLIST[this.index].name,
-        soundDuration: this.sound.getDurationMillis(),
+        playbackInstanceName: PLAYLIST[this.index].name,
+        showVideo: PLAYLIST[this.index].isVideo,
         isLoading: false,
       });
     }
   }
 
-  _updateScreenForStatus = (status) => {
-    this.setState({ soundPosition: status.position_millis, isPlaying: status.is_playing });
-  }
-
-  async advanceIndex(forward) {
-    this.index = (this.index + (forward ? 1 : PLAYLIST.length - 1)) % PLAYLIST.length;
-  }
-
-  async updateSoundForIndex(playing) {
-    if (this.sound != null) {
-      await this.sound.unload();
+  _callback = status => {
+    if (status.isLoaded) {
+      this.setState({
+        playbackInstancePosition: status.positionMillis,
+        playbackInstanceDuration: status.durationMillis,
+        shouldPlay: status.shouldPlay,
+        isPlaying: status.isPlaying,
+        isBuffering: status.isBuffering,
+        rate: status.rate,
+        muted: status.isMuted,
+        volume: status.volume,
+        loopingType: status.isLooping ? LOOPING_TYPE_ONE : LOOPING_TYPE_ALL,
+        shouldCorrectPitch: status.shouldCorrectPitch,
+      });
+      if (status.didJustFinish && !status.isLooping) {
+        this._advanceIndex(true);
+        this._updatePlaybackInstanceForIndex(true);
+      }
+    } else {
+      if (status.error) {
+        console.log(`FATAL PLAYER ERROR: ${status.error}`);
+      }
     }
-    this.updateScreenForLoading(true);
-    this.sound = null;
-    const sound = await PLAYLIST[this.index].getLoadedSound();
-    await sound.setIsMuted(this.state.muted);
-    await sound.setIsLooping(this.state.loopingType === LOOPING_TYPE_ONE);
-    await sound.setVolume(this.volume);
-    sound.setStatusChangeCallback(this._updateScreenForStatus);
-    sound.setPlaybackFinishedCallback(() => {
-      this.advanceIndex(true);
-      this.updateSoundForIndex(true);
+  };
+
+  _onLoadStart = () => {
+    console.log(`ON LOAD START`);
+  };
+
+  _onLoad = status => {
+    console.log(`ON LOAD : ${JSON.stringify(status)}`);
+  };
+
+  _onError = error => {
+    console.log(`ON ERROR : ${error}`);
+  };
+
+  _onReadyForDisplay = event => {
+    const widestHeight =
+      DEVICE_WIDTH * event.naturalSize.height / event.naturalSize.width;
+    if (widestHeight > VIDEO_CONTAINER_HEIGHT) {
+      this.setState({
+        videoWidth:
+          VIDEO_CONTAINER_HEIGHT *
+            event.naturalSize.width /
+            event.naturalSize.height,
+        videoHeight: VIDEO_CONTAINER_HEIGHT,
+      });
+    } else {
+      this.setState({
+        videoWidth: DEVICE_WIDTH,
+        videoHeight:
+          DEVICE_WIDTH * event.naturalSize.height / event.naturalSize.width,
+      });
+    }
+  };
+
+  _onFullscreenUpdate = event => {
+    console.log(
+      `FULLSCREEN UPDATE : ${JSON.stringify(event.fullscreenUpdate)}`
+    );
+  };
+
+  _advanceIndex(forward) {
+    this.index =
+      (this.index + (forward ? 1 : PLAYLIST.length - 1)) % PLAYLIST.length;
+  }
+
+  async _updatePlaybackInstanceForIndex(playing) {
+    this._updateScreenForLoading(true);
+
+    this.setState({
+      videoWidth: DEVICE_WIDTH,
+      videoHeight: VIDEO_CONTAINER_HEIGHT,
     });
-    this.sound = sound;
-    this.updateScreenForLoading(false);
-    if (playing) {
-      await this.sound.play();
-    }
+
+    this._loadNewPlaybackInstance(playing);
   }
 
   _onPlayPausePressed = () => {
-    if (this.sound != null) {
+    if (this.playbackInstance != null) {
       if (this.state.isPlaying) {
-        this.sound.pause();
+        this.playbackInstance.pauseAsync();
       } else {
-        this.sound.play();
+        this.playbackInstance.playAsync();
       }
     }
-  }
+  };
 
   _onStopPressed = () => {
-    if (this.sound != null) {
-      this.sound.stop();
+    if (this.playbackInstance != null) {
+      this.playbackInstance.stopAsync();
     }
-  }
+  };
 
   _onForwardPressed = () => {
-    if (this.sound != null) {
-      this.advanceIndex(true);
-      this.updateSoundForIndex(this.state.isPlaying);
+    if (this.playbackInstance != null) {
+      this._advanceIndex(true);
+      this._updatePlaybackInstanceForIndex(this.state.shouldPlay);
     }
-  }
+  };
 
   _onBackPressed = () => {
-    if (this.sound != null) {
-      this.advanceIndex(false);
-      this.updateSoundForIndex(this.state.isPlaying);
+    if (this.playbackInstance != null) {
+      this._advanceIndex(false);
+      this._updatePlaybackInstanceForIndex(this.state.shouldPlay);
     }
-  }
+  };
 
   _onMutePressed = () => {
-    const newValue = !this.state.muted;
-    this.setState({ muted: newValue });
-    if (this.sound != null) {
-      this.sound.setIsMuted(newValue);
+    if (this.playbackInstance != null) {
+      this.playbackInstance.setIsMutedAsync(!this.state.muted);
     }
-  }
+  };
 
   _onLoopPressed = () => {
-    const newValue = (this.state.loopingType + 1) % Object.keys(LOOPING_TYPE_ICONS).length;
-    this.setState({ loopingType: newValue });
-    if (this.sound != null) {
-      this.sound.setIsLooping(newValue === LOOPING_TYPE_ONE);
+    if (this.playbackInstance != null) {
+      this.playbackInstance.setIsLoopingAsync(
+        this.state.loopingType !== LOOPING_TYPE_ONE
+      );
     }
-  }
+  };
 
-  _onVolumeSliderValueChange = (value) => {
-    this.volume = value;
-    if (this.sound != null) {
-      this.sound.setVolume(value);
+  _onVolumeSliderValueChange = value => {
+    if (this.playbackInstance != null) {
+      this.playbackInstance.setVolumeAsync(value);
     }
-  }
+  };
 
-  _onSeekSliderValueChange = (value) => {
-    if (this.sound != null && !this.isSeeking) {
-      this.isSeeking = true;
-      this.shouldPlayAtEndOfSeek = this.state.isPlaying;
-      this.sound.pause();
-    }
-  }
-
-  _onSeekSliderSlidingComplete = async (value) => {
-    if (this.sound != null) {
-      this.isSeeking = false;
-      await this.sound.setPosition(value * this.sound.getDurationMillis());
-      if (this.shouldPlayAtEndOfSeek) {
-        this.sound.play();
+  _trySetRate = async (rate, shouldCorrectPitch) => {
+    if (this.playbackInstance != null) {
+      try {
+        await this.playbackInstance.setRateAsync(rate, shouldCorrectPitch);
+      } catch (error) {
+        // Rate changing could not be performed, possibly because the client's Android API is too old.
       }
     }
-  }
+  };
+
+  _onRateSliderSlidingComplete = async value => {
+    this._trySetRate(value * RATE_SCALE, this.state.shouldCorrectPitch);
+  };
+
+  _onPitchCorrectionPressed = async value => {
+    this._trySetRate(this.state.rate, !this.state.shouldCorrectPitch);
+  };
+
+  _onSeekSliderValueChange = value => {
+    if (this.playbackInstance != null && !this.isSeeking) {
+      this.isSeeking = true;
+      this.shouldPlayAtEndOfSeek = this.state.shouldPlay;
+      this.playbackInstance.pauseAsync();
+    }
+  };
+
+  _onSeekSliderSlidingComplete = async value => {
+    if (this.playbackInstance != null) {
+      this.isSeeking = false;
+      const seekPosition = value * this.state.playbackInstanceDuration;
+      if (this.shouldPlayAtEndOfSeek) {
+        this.playbackInstance.playFromPositionAsync(seekPosition);
+      } else {
+        this.playbackInstance.setPositionAsync(seekPosition);
+      }
+    }
+  };
 
   _getSeekSliderPosition() {
-    if (this.sound != null && this.state.soundPosition != null && this.state.soundDuration != null) {
-      return this.state.soundPosition / this.state.soundDuration;
+    if (
+      this.playbackInstance != null &&
+      this.state.playbackInstancePosition != null &&
+      this.state.playbackInstanceDuration != null
+    ) {
+      return (
+        this.state.playbackInstancePosition /
+        this.state.playbackInstanceDuration
+      );
     }
     return 0;
   }
@@ -243,7 +410,7 @@ class MusicPlayer extends React.Component {
     const seconds = Math.floor(totalSeconds % 60);
     const minutes = Math.floor(totalSeconds / 60);
 
-    const padWithZero = (number) => {
+    const padWithZero = number => {
       const string = number.toString();
       if (number < 10) {
         return '0' + string;
@@ -254,127 +421,304 @@ class MusicPlayer extends React.Component {
   }
 
   _getTimestamp() {
-    if (this.sound != null && this.state.soundPosition != null && this.state.soundDuration != null) {
-      return `${this._getMMSSFromMillis(this.state.soundPosition)} / ${this._getMMSSFromMillis(this.state.soundDuration)}`;
+    if (
+      this.playbackInstance != null &&
+      this.state.playbackInstancePosition != null &&
+      this.state.playbackInstanceDuration != null
+    ) {
+      return `${this._getMMSSFromMillis(
+        this.state.playbackInstancePosition
+      )} / ${this._getMMSSFromMillis(this.state.playbackInstanceDuration)}`;
     }
     return '';
   }
 
+  _onPosterPressed = () => {
+    this.setState({ poster: !this.state.poster });
+  };
+
+  _onUseNativeControlsPressed = () => {
+    this.setState({ useNativeControls: !this.state.useNativeControls });
+  };
+
+  _onFullscreenPressed = () => {
+    try {
+      this._video.presentIOSFullscreenPlayer();
+    } catch (error) {
+      console.log(error.toString());
+    }
+  };
+
   render() {
-    return (
-      <View style={styles.container}>
-        <View />
-        <View style={styles.nameContainer}>
-          {
-            this.state.fontLoaded ? (
-              <Text style={{ ...Font.style('cutive-mono-regular') }}>
-                {this.state.soundName}
+    return !this.state.fontLoaded
+      ? <View style={styles.emptyContainer} />
+      : <View style={styles.container}>
+          <View />
+          <View style={styles.nameContainer}>
+            <Text
+              style={[styles.text, { ...Font.style('cutive-mono-regular') }]}>
+              {this.state.playbackInstanceName}
+            </Text>
+          </View>
+          <View style={styles.space} />
+          <View style={styles.videoContainer}>
+            <Video
+              ref={this._mountVideo}
+              style={[
+                styles.video,
+                {
+                  opacity: this.state.showVideo ? 1.0 : 0.0,
+                  width: this.state.videoWidth,
+                  height: this.state.videoHeight,
+                },
+              ]}
+              resizeMode={Video.RESIZE_MODE_CONTAIN}
+              callback={this._callback}
+              onLoadStart={this._onLoadStart}
+              onLoad={this._onLoad}
+              onError={this._onError}
+              onFullscreenUpdate={this._onFullscreenUpdate}
+              onReadyForDisplay={this._onReadyForDisplay}
+              useNativeControls={this.state.useNativeControls}
+            />
+          </View>
+          <View
+            style={[
+              styles.playbackContainer,
+              {
+                opacity: this.state.isLoading ? DISABLED_OPACITY : 1.0,
+              },
+            ]}>
+            <Slider
+              style={styles.playbackSlider}
+              trackImage={ICON_TRACK_1.module}
+              thumbImage={ICON_THUMB_1.module}
+              value={this._getSeekSliderPosition()}
+              onValueChange={this._onSeekSliderValueChange}
+              onSlidingComplete={this._onSeekSliderSlidingComplete}
+              disabled={this.state.isLoading}
+            />
+            <View style={styles.timestampRow}>
+              <Text
+                style={[
+                  styles.text,
+                  styles.buffering,
+                  { ...Font.style('cutive-mono-regular') },
+                ]}>
+                {this.state.isBuffering ? BUFFERING_STRING : ''}
               </Text>
-            ) : null
-          }
-        </View>
-        <View
-          style={[styles.playbackContainer, {
-            opacity: this.state.isLoading ? DISABLED_OPACITY : 1.0,
-          }]}>
-          <Slider
-            style={styles.playbackSlider}
-            trackImage={ICON_TRACK_1.module}
-            thumbImage={ICON_THUMB_1.module}
-            value={this._getSeekSliderPosition()}
-            onValueChange={this._onSeekSliderValueChange}
-            onSlidingComplete={this._onSeekSliderSlidingComplete}
-            disabled={this.state.isLoading}
-          />
-          {
-            this.state.fontLoaded ? (
-              <Text style={[styles.timestamp, { ...Font.style('cutive-mono-regular') }]}>
+              <Text
+                style={[
+                  styles.text,
+                  styles.timestamp,
+                  { ...Font.style('cutive-mono-regular') },
+                ]}>
                 {this._getTimestamp()}
               </Text>
-            ) : null
-          }
-        </View>
-        <View
-          style={[styles.buttonsContainerBase, styles.buttonsContainerTopRow, {
-            opacity: this.state.isLoading ? DISABLED_OPACITY : 1.0,
-          }]}>
-          <TouchableHighlight
-            underlayColor={BACKGROUND_COLOR}
-            style={styles.wrapper}
-            onPress={this._onBackPressed}
-            disabled={this.state.isLoading}>
-            <Image
-              style={styles.button}
-              source={ICON_BACK_BUTTON.module}
-            />
-          </TouchableHighlight>
-          <TouchableHighlight
-            underlayColor={BACKGROUND_COLOR}
-            style={styles.wrapper}
-            onPress={this._onPlayPausePressed}
-            disabled={this.state.isLoading}>
-            <Image
-              style={styles.button}
-              source={this.state.isPlaying ? ICON_PAUSE_BUTTON.module : ICON_PLAY_BUTTON.module}
-            />
-          </TouchableHighlight>
-          <TouchableHighlight
-            underlayColor={BACKGROUND_COLOR}
-            style={styles.wrapper}
-            onPress={this._onStopPressed}
-            disabled={this.state.isLoading}>
-            <Image
-              style={styles.button}
-              source={ICON_STOP_BUTTON.module}
-            />
-          </TouchableHighlight>
-          <TouchableHighlight
-            underlayColor={BACKGROUND_COLOR}
-            style={styles.wrapper}
-            onPress={this._onForwardPressed}
-            disabled={this.state.isLoading}>
-            <Image
-              style={styles.button}
-              source={ICON_FORWARD_BUTTON.module}
-            />
-          </TouchableHighlight>
-        </View>
-        <View style={[styles.buttonsContainerBase, styles.buttonsContainerBottomRow]}>
-          <View style={styles.volumeContainer}>
+            </View>
+          </View>
+          <View
+            style={[
+              styles.buttonsContainerBase,
+              styles.buttonsContainerTopRow,
+              {
+                opacity: this.state.isLoading ? DISABLED_OPACITY : 1.0,
+              },
+            ]}>
             <TouchableHighlight
               underlayColor={BACKGROUND_COLOR}
               style={styles.wrapper}
-              onPress={this._onMutePressed}>
+              onPress={this._onBackPressed}
+              disabled={this.state.isLoading}>
+              <Image style={styles.button} source={ICON_BACK_BUTTON.module} />
+            </TouchableHighlight>
+            <TouchableHighlight
+              underlayColor={BACKGROUND_COLOR}
+              style={styles.wrapper}
+              onPress={this._onPlayPausePressed}
+              disabled={this.state.isLoading}>
               <Image
                 style={styles.button}
-                source={this.state.muted ? ICON_MUTED_BUTTON.module : ICON_UNMUTED_BUTTON.module}
+                source={
+                  this.state.isPlaying
+                    ? ICON_PAUSE_BUTTON.module
+                    : ICON_PLAY_BUTTON.module
+                }
               />
             </TouchableHighlight>
-            <Slider
-              style={styles.volumeSlider}
-              trackImage={ICON_TRACK_1.module}
-              thumbImage={ICON_THUMB_2.module}
-              value={1}
-              onValueChange={this._onVolumeSliderValueChange}
-            />
+            <TouchableHighlight
+              underlayColor={BACKGROUND_COLOR}
+              style={styles.wrapper}
+              onPress={this._onStopPressed}
+              disabled={this.state.isLoading}>
+              <Image style={styles.button} source={ICON_STOP_BUTTON.module} />
+            </TouchableHighlight>
+            <TouchableHighlight
+              underlayColor={BACKGROUND_COLOR}
+              style={styles.wrapper}
+              onPress={this._onForwardPressed}
+              disabled={this.state.isLoading}>
+              <Image
+                style={styles.button}
+                source={ICON_FORWARD_BUTTON.module}
+              />
+            </TouchableHighlight>
           </View>
-          <TouchableHighlight
-            underlayColor={BACKGROUND_COLOR}
-            style={styles.wrapper}
-            onPress={this._onLoopPressed}>
-            <Image
-              style={styles.button}
-              source={LOOPING_TYPE_ICONS[this.state.loopingType].module}
+          <View
+            style={[
+              styles.buttonsContainerBase,
+              styles.buttonsContainerMiddleRow,
+            ]}>
+            <View style={styles.volumeContainer}>
+              <TouchableHighlight
+                underlayColor={BACKGROUND_COLOR}
+                style={styles.wrapper}
+                onPress={this._onMutePressed}>
+                <Image
+                  style={styles.button}
+                  source={
+                    this.state.muted
+                      ? ICON_MUTED_BUTTON.module
+                      : ICON_UNMUTED_BUTTON.module
+                  }
+                />
+              </TouchableHighlight>
+              <Slider
+                style={styles.volumeSlider}
+                trackImage={ICON_TRACK_1.module}
+                thumbImage={ICON_THUMB_2.module}
+                value={1}
+                onValueChange={this._onVolumeSliderValueChange}
+              />
+            </View>
+            <TouchableHighlight
+              underlayColor={BACKGROUND_COLOR}
+              style={styles.wrapper}
+              onPress={this._onLoopPressed}>
+              <Image
+                style={styles.button}
+                source={LOOPING_TYPE_ICONS[this.state.loopingType].module}
+              />
+            </TouchableHighlight>
+          </View>
+          <View
+            style={[
+              styles.buttonsContainerBase,
+              styles.buttonsContainerBottomRow,
+            ]}>
+            <TouchableHighlight
+              underlayColor={BACKGROUND_COLOR}
+              style={styles.wrapper}
+              onPress={() =>
+                this._trySetRate(1.0, this.state.shouldCorrectPitch)}>
+              <View style={styles.button}>
+                <Text
+                  style={[
+                    styles.text,
+                    { ...Font.style('cutive-mono-regular') },
+                  ]}>
+                  Rate:
+                </Text>
+              </View>
+            </TouchableHighlight>
+            <Slider
+              style={styles.rateSlider}
+              trackImage={ICON_TRACK_1.module}
+              thumbImage={ICON_THUMB_1.module}
+              value={this.state.rate / RATE_SCALE}
+              onSlidingComplete={this._onRateSliderSlidingComplete}
             />
-          </TouchableHighlight>
-        </View>
-        <View />
-      </View>
-    );
+            <TouchableHighlight
+              underlayColor={BACKGROUND_COLOR}
+              style={styles.wrapper}
+              onPress={this._onPitchCorrectionPressed}>
+              <View style={styles.button}>
+                <Text
+                  style={[
+                    styles.text,
+                    { ...Font.style('cutive-mono-regular') },
+                  ]}>
+                  PC: {this.state.shouldCorrectPitch ? 'yes' : 'no'}
+                </Text>
+              </View>
+            </TouchableHighlight>
+          </View>
+          <View />
+          {this.state.showVideo
+            ? <View>
+                <View
+                  style={[
+                    styles.buttonsContainerBase,
+                    styles.buttonsContainerTextRow,
+                  ]}>
+                  <View />
+                  <TouchableHighlight
+                    underlayColor={BACKGROUND_COLOR}
+                    style={styles.wrapper}
+                    onPress={this._onPosterPressed}>
+                    <View style={styles.button}>
+                      <Text
+                        style={[
+                          styles.text,
+                          { ...Font.style('cutive-mono-regular') },
+                        ]}>
+                        Poster: {this.state.poster ? 'yes' : 'no'}
+                      </Text>
+                    </View>
+                  </TouchableHighlight>
+                  <View />
+                  <TouchableHighlight
+                    underlayColor={BACKGROUND_COLOR}
+                    style={styles.wrapper}
+                    onPress={this._onFullscreenPressed}>
+                    <View style={styles.button}>
+                      <Text
+                        style={[
+                          styles.text,
+                          { ...Font.style('cutive-mono-regular') },
+                        ]}>
+                        Fullscreen
+                      </Text>
+                    </View>
+                  </TouchableHighlight>
+                  <View />
+                </View>
+                <View style={styles.space} />
+                <View
+                  style={[
+                    styles.buttonsContainerBase,
+                    styles.buttonsContainerTextRow,
+                  ]}>
+                  <View />
+                  <TouchableHighlight
+                    underlayColor={BACKGROUND_COLOR}
+                    style={styles.wrapper}
+                    onPress={this._onUseNativeControlsPressed}>
+                    <View style={styles.button}>
+                      <Text
+                        style={[
+                          styles.text,
+                          { ...Font.style('cutive-mono-regular') },
+                        ]}>
+                        Native Controls:
+                        {' '}
+                        {this.state.useNativeControls ? 'yes' : 'no'}
+                      </Text>
+                    </View>
+                  </TouchableHighlight>
+                  <View />
+                </View>
+              </View>
+            : null}
+        </View>;
   }
 }
 
 const styles = StyleSheet.create({
+  emptyContainer: {
+    alignSelf: 'stretch',
+    backgroundColor: BACKGROUND_COLOR,
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -383,11 +727,18 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     backgroundColor: BACKGROUND_COLOR,
   },
-  wrapper: {
-
-  },
+  wrapper: {},
   nameContainer: {
-    height: DEVICE_HEIGHT * 2.0 / 5.0,
+    height: FONT_SIZE,
+  },
+  space: {
+    height: FONT_SIZE,
+  },
+  videoContainer: {
+    height: VIDEO_CONTAINER_HEIGHT,
+  },
+  video: {
+    maxWidth: DEVICE_WIDTH,
   },
   playbackContainer: {
     flex: 1,
@@ -401,9 +752,24 @@ const styles = StyleSheet.create({
   playbackSlider: {
     alignSelf: 'stretch',
   },
+  timestampRow: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    alignSelf: 'stretch',
+    minHeight: FONT_SIZE,
+  },
+  text: {
+    fontSize: FONT_SIZE,
+    minHeight: FONT_SIZE,
+  },
+  buffering: {
+    textAlign: 'left',
+    paddingLeft: 20,
+  },
   timestamp: {
     textAlign: 'right',
-    alignSelf: 'stretch',
     paddingRight: 20,
   },
   button: {
@@ -420,7 +786,7 @@ const styles = StyleSheet.create({
     minWidth: DEVICE_WIDTH / 2.0,
     maxWidth: DEVICE_WIDTH / 2.0,
   },
-  buttonsContainerBottomRow: {
+  buttonsContainerMiddleRow: {
     maxHeight: ICON_MUTED_BUTTON.height,
     alignSelf: 'stretch',
     paddingRight: 20,
@@ -436,6 +802,23 @@ const styles = StyleSheet.create({
   volumeSlider: {
     width: DEVICE_WIDTH / 2.0 - ICON_MUTED_BUTTON.width,
   },
+  buttonsContainerBottomRow: {
+    maxHeight: ICON_THUMB_1.height,
+    alignSelf: 'stretch',
+    paddingRight: 20,
+    paddingLeft: 20,
+  },
+  rateSlider: {
+    width: DEVICE_WIDTH / 2.0,
+  },
+  buttonsContainerTextRow: {
+    maxHeight: FONT_SIZE,
+    alignItems: 'center',
+    paddingRight: 20,
+    paddingLeft: 20,
+    minWidth: DEVICE_WIDTH,
+    maxWidth: DEVICE_WIDTH,
+  },
 });
 
-export default MusicPlayer;
+export default MusicPlayer

@@ -32,7 +32,7 @@ class MusicPlayground extends Component {
   state = { videoPlayerShown: false, showModal: false }
 
   componentWillMount() {
-    return Audio.setIsEnabled(false);
+    return Audio.setIsEnabledAsync(false);
   }
   consoleLog() {
     return console.log(this.state);
