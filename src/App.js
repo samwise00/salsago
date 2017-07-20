@@ -2,8 +2,9 @@ import firebase from 'firebase';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import BundleList from './components/screens/BundleList';
 import BeginnerBundle from './components/screens/BeginnerBundle';
+import IntermediateBundle from './components/screens/IntermediateBundle';
 import MusicPlayground from './components/screens/MusicPlayground';
-import MusicPlayer from './components/screens/MusicPlayer';
+import Songs from './components/screens/Songs';
 import NewsFeed from './components/screens/NewsFeed';
 import Store from './components/screens/Store';
 
@@ -19,15 +20,16 @@ firebase.initializeApp(config);
 
 const HomeNav = StackNavigator({
   BundleListScreen: { screen: BundleList },
-  BeginnerBundleScreen: { screen: BeginnerBundle }
+  BeginnerBundleScreen: { screen: BeginnerBundle },
+  IntermediateBundleScreen: { screen: IntermediateBundle }
 });
 
 const MusicNav = StackNavigator({
   MusicPlayground: { screen: MusicPlayground }
 });
 
-const MusicPlayerNav = StackNavigator({
-  MusicPlayer: { screen: MusicPlayer }
+const MediaPlayerNav = StackNavigator({
+  Songs: { screen: Songs }
 });
 
 const NewsFeedNav = StackNavigator({
@@ -41,10 +43,11 @@ const StoreNav = StackNavigator({
 const TabNav = TabNavigator({
   Home: { screen: HomeNav },
   Music: { screen: MusicNav },
-  Listen: { screen: MusicPlayerNav },
+  Listen: { screen: MediaPlayerNav },
   NewsFeed: { screen: NewsFeedNav },
   Store: { screen: StoreNav }
 }, {
+  lazyLoad: true,
   tabBarOptions: {
     activeTintColor: '#424242',
     showLabel: true,

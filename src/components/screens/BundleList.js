@@ -18,6 +18,10 @@ class BundleList extends Component {
     return this.props.navigation.navigate('BeginnerBundleScreen');
   }
 
+  onIntermediateButtonPress() {
+    return this.props.navigation.navigate('IntermediateBundleScreen');
+  }
+
   onStoreButtonPress() {
     return this.props.navigation.navigate('Store');
   }
@@ -30,7 +34,7 @@ class BundleList extends Component {
             <Button onPress={this.onBeginnerButtonPress.bind(this)}>Beginner</Button>
           </CardSection>
           <CardSection>
-            <Button onPress={this.onBeginnerButtonPress.bind(this)}>Intermediate</Button>
+            <Button onPress={this.onIntermediateButtonPress.bind(this)}>Intermediate</Button>
           </CardSection>
           <CardSection>
             <Button onPress={this.onBeginnerButtonPress.bind(this)}>Advanced</Button>

@@ -120,7 +120,7 @@ const BUFFERING_STRING = '...buffering...';
 const RATE_SCALE = 3.0;
 const VIDEO_CONTAINER_HEIGHT = DEVICE_HEIGHT * 2.0 / 5.0 - FONT_SIZE * 2;
 
-class MusicPlayer extends React.Component {
+class Songs extends React.Component {
   constructor(props) {
     super(props);
     this.index = 0;
@@ -137,7 +137,7 @@ class MusicPlayer extends React.Component {
       shouldPlay: false,
       isPlaying: false,
       isBuffering: false,
-      isLoading: true,
+      isLoading: false,
       fontLoaded: false,
       shouldCorrectPitch: true,
       volume: 1.0,
@@ -821,4 +821,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MusicPlayer
+export default Songs;

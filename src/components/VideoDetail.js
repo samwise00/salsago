@@ -21,7 +21,7 @@ const VideoDetail = ({ videoList, videoToggle, renderVideo }) => {
         </View>
       </CardSection>
       <CardSection>
-          <Button onPress={videoToggle}>Beginner</Button>
+          <Button onPress={videoToggle}>Watch Video</Button>
       </CardSection>
       {renderVideo}
     </Card>

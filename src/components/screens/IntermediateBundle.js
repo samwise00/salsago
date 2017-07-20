@@ -5,12 +5,12 @@ import {
   Dimensions
 } from 'react-native';
 import axios from 'axios';
-import { VideoPlayer } from '../VideoPlayer';
+import MediaPlayer from '../MediaPlayer';
 import { CardSection, Button, Confirm } from '../common';
 import VideoDetail from '../VideoDetail';
 
 
-class BeginnerBundle extends Component {
+class IntermediateBundle extends Component {
   static navigationOptions = {
     title: 'Beginner Bundle',
     tabBarLabel: 'Lessons'
@@ -36,7 +36,7 @@ class BeginnerBundle extends Component {
   }
 
   fetchListItems() {
-    axios.get('https://salsago-d79b9.firebaseio.com/bundles/beginner.json')
+    axios.get('https://salsago-d79b9.firebaseio.com/bundles/intermediate.json')
       .then((response) => {
         const arr = [];
         for (const i in response.data) {
@@ -45,12 +45,6 @@ class BeginnerBundle extends Component {
         this.setState({ videoList: arr });
       });
   }
-
-  makeVideoUrl(url) {
-    const newUrl = '"' + url + '""';
-    return newUrl
-  }
-
 
   renderVideoList() {
     return this.state.videoList.map(videoList =>
@@ -63,15 +57,10 @@ class BeginnerBundle extends Component {
     );
   }
 
-  renderVideo(url) {
-    console.log(url);
+  renderVideo() {
     if (this.state.videoPlayerShown === true) {
       return (
-        <VideoPlayer
-          source="https://firebasestorage.googleapis.com/v0/b/salsago-d79b9.appspot.com/o/Nieves%20Dance%20Company%20%40%20LCL%20March%2020th%202016.mp4?alt=media&token=c6108ccc-bcf7-4d8e-9200-f3547bd481f1"
-          onEnd={this.toggleVideoPlayerState.bind(this)}
-          fullscreen
-        />
+        <MediaPlayer />
       );
     }
   }
@@ -99,4 +88,4 @@ Placeholder text
 
 //export default connect(null, { bundleFetch })(BeginnerBundle);
 
-export default BeginnerBundle;
+export default IntermediateBundle;

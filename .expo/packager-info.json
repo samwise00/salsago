@@ -1,8 +1,8 @@
 {
   "packagerPort": 19001,
-  "packagerPid": 43274,
+  "packagerPid": 47360,
   "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://vn-ppn.samwise000.salsago.exp.direct",
-  "packagerNgrokUrl": "https://packager.vn-ppn.samwise000.salsago.exp.direct",
-  "ngrokPid": 43290
+  "expoServerNgrokUrl": "https://x2-smu.samwise000.salsago.exp.direct",
+  "packagerNgrokUrl": "https://packager.x2-smu.samwise000.salsago.exp.direct",
+  "ngrokPid": 47375
 }
