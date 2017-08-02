@@ -35,7 +35,7 @@ const PLAYLIST = [
   ),
   new PlaylistItem(
     'Big Buck Bunny',
-    'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    'https://firebasestorage.googleapis.com/v0/b/salsago-d79b9.appspot.com/o/Nieves%20Dance%20Company%20%40%20LCL%20March%2020th%202016.mp4?alt=media&token=c6108ccc-bcf7-4d8e-9200-f3547bd481f1',
     true
   ),
   new PlaylistItem(
@@ -123,12 +123,12 @@ const VIDEO_CONTAINER_HEIGHT = DEVICE_HEIGHT * 2.0 / 5.0 - FONT_SIZE * 2;
 class MediaPlayer extends React.Component {
   constructor(props) {
     super(props);
-    this.index = 2;
+    this.index = 1;
     this.isSeeking = false;
     this.shouldPlayAtEndOfSeek = false;
     this.playbackInstance = null;
     this.state = {
-      showVideo: false,
+      showVideo: true,
       playbackInstanceName: LOADING_STRING,
       loopingType: LOOPING_TYPE_ALL,
       muted: false,
@@ -136,7 +136,7 @@ class MediaPlayer extends React.Component {
       playbackInstanceDuration: null,
       shouldPlay: false,
       isPlaying: false,
-      isBuffering: false,
+      isBuffering: true,
       isLoading: true,
       fontLoaded: false,
       shouldCorrectPitch: true,
@@ -145,7 +145,7 @@ class MediaPlayer extends React.Component {
       videoWidth: DEVICE_WIDTH,
       videoHeight: VIDEO_CONTAINER_HEIGHT,
       poster: false,
-      useNativeControls: false,
+      useNativeControls: true,
       fullscreen: false,
     };
   }

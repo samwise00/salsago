@@ -4,6 +4,7 @@ import BundleList from './components/screens/BundleList';
 import BeginnerBundle from './components/screens/BeginnerBundle';
 import IntermediateBundle from './components/screens/IntermediateBundle';
 import MusicPlayground from './components/screens/MusicPlayground';
+import MediaPlayer from './components/MediaPlayer';
 import Songs from './components/screens/Songs';
 import NewsFeed from './components/screens/NewsFeed';
 import Store from './components/screens/Store';
@@ -21,11 +22,16 @@ firebase.initializeApp(config);
 const HomeNav = StackNavigator({
   BundleListScreen: { screen: BundleList },
   BeginnerBundleScreen: { screen: BeginnerBundle },
-  IntermediateBundleScreen: { screen: IntermediateBundle }
+  IntermediateBundleScreen: { screen: IntermediateBundle },
+  MediaPlayerScreen: { screen: MediaPlayer },
 });
 
 const MusicNav = StackNavigator({
   MusicPlayground: { screen: MusicPlayground }
+});
+
+const SongsNav = StackNavigator({
+  Songs: { screen: Songs }
 });
 
 const MediaPlayerNav = StackNavigator({
@@ -43,7 +49,7 @@ const StoreNav = StackNavigator({
 const TabNav = TabNavigator({
   Home: { screen: HomeNav },
   Music: { screen: MusicNav },
-  Listen: { screen: MediaPlayerNav },
+  Listen: { screen: SongsNav },
   NewsFeed: { screen: NewsFeedNav },
   Store: { screen: StoreNav }
 }, {

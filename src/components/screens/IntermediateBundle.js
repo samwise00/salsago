@@ -12,7 +12,7 @@ import VideoDetail from '../VideoDetail';
 
 class IntermediateBundle extends Component {
   static navigationOptions = {
-    title: 'Beginner Bundle',
+    title: 'Intermediate Bundle',
     tabBarLabel: 'Lessons'
   }
 
@@ -33,6 +33,10 @@ class IntermediateBundle extends Component {
   toggleVideoPlayerState = () => {
     console.log("hi")
     this.setState({ videoPlayerShown: !this.state.videoPlayerShown });
+  }
+
+  onVideoButtonPress() {
+    return this.props.navigation.navigate('MediaPlayer');
   }
 
   fetchListItems() {
@@ -59,9 +63,11 @@ class IntermediateBundle extends Component {
 
   renderVideo() {
     if (this.state.videoPlayerShown === true) {
-      return (
+      /*return (
         <MediaPlayer />
-      );
+      );*/
+      console.log('poo')
+      return this.props.navigation.navigate('MediaPlayerScreen');
     }
   }
 
